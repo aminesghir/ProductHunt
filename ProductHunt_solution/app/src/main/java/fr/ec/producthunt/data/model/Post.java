@@ -17,11 +17,11 @@ public class Post {
   private String urlImage;
   private Bitmap image;
   private String postUrl;
-  private Date date;
+  private String date;
 
-  public Date getDate(){ return this.date; }
+  public String getDate(){ return this.date; }
 
-  public void setDate(Date d){ this.date = d; }
+  public void setDate(String d){ this.date = d; }
 
   public String getTitle() {
     return title;

@@ -2,6 +2,7 @@ package fr.ec.producthunt.data;
 
 import fr.ec.producthunt.data.model.Post;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ public class JsonPostParser {
     post.setTitle(postJson.getString("name"));
     post.setSubTitle(postJson.getString("tagline"));
     post.setPostUrl(postJson.getString("redirect_url"));
+    post.setDate(postJson.getString("created_at"));
 
     //Image url
     /*"thumbnail": {
