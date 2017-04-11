@@ -3,6 +3,7 @@ package fr.ec.producthunt.data.model;
 import android.content.ContentValues;
 import android.graphics.Bitmap;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.ec.producthunt.data.database.DataBaseContract;
@@ -78,6 +79,7 @@ public class Post {
     contentValues.put(DataBaseContract.PostTable.SUBTITLE_COLUMN,subTitle);
     contentValues.put(DataBaseContract.PostTable.IMAGE_URL_COLUMN,urlImage);
     contentValues.put(DataBaseContract.PostTable.POST_URL_COLUMN,postUrl);
+    contentValues.put(DataBaseContract.PostTable.DATE,date);
     return contentValues;
   }
 

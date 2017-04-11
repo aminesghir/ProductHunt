@@ -28,6 +28,7 @@ public class DataProvider {
       Post post = new Post();
       post.setTitle("Gear 360 " + i);
       post.setSubTitle("Capture stunning 360 video for virtual reality, by Samsung");
+      post.setDate("date ici ...");
 
       list.add(post);
     }

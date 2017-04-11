@@ -24,6 +24,7 @@ public final class DataBaseContract {
     public static final String SUBTITLE_COLUMN ="subtitle";
     public static final String IMAGE_URL_COLUMN ="imageurl";
     public static final String POST_URL_COLUMN  ="postUrl";
+    public static final String DATE  ="date";
 
 
 
@@ -33,7 +34,8 @@ public final class DataBaseContract {
             PostTable.TITLE_COLUMN + TEXT_TYPE +COMM_SPA+
             PostTable.SUBTITLE_COLUMN + TEXT_TYPE +COMM_SPA+
             PostTable.IMAGE_URL_COLUMN + TEXT_TYPE+COMM_SPA+
-            PostTable.POST_URL_COLUMN + TEXT_TYPE+
+            PostTable.POST_URL_COLUMN + TEXT_TYPE+COMM_SPA+
+            PostTable.DATE + TEXT_TYPE+
             ")";
 
     public static final String SQL_DROP_POST_TABLE =  "DROP TABLE IF EXISTS "+TABLE_NAME;
@@ -44,6 +46,7 @@ public final class DataBaseContract {
         SUBTITLE_COLUMN,
         IMAGE_URL_COLUMN,
         POST_URL_COLUMN,
+        DATE,
     };
   }
 
