@@ -2,6 +2,9 @@ package fr.ec.producthunt.data.model;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
+
+import java.util.Date;
+
 import fr.ec.producthunt.data.database.DataBaseContract;
 
 /**
@@ -14,6 +17,11 @@ public class Post {
   private String urlImage;
   private Bitmap image;
   private String postUrl;
+  private Date date;
+
+  public Date getDate(){ return this.date; }
+
+  public void setDate(Date d){ this.date = d; }
 
   public String getTitle() {
     return title;
