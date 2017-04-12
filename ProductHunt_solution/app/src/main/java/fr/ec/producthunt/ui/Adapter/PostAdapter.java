@@ -18,7 +18,10 @@ import java.util.List;
  */
 public class PostAdapter extends BaseAdapter {
 
+  private static final int TYPE_HEADER = 1;
+  private static final int TYPE_ITEM_LIST = 2;
   private List<Post> datasource = Collections.EMPTY_LIST;
+  int type;
 
   public PostAdapter() {
   }
@@ -38,7 +41,12 @@ public class PostAdapter extends BaseAdapter {
   @Override public View getView(int position, View convertView, ViewGroup parent) {
 
     if(convertView == null) {
-        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent, false);
+        if(type == TYPE_HEADER){
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header,parent, false);
+        }else{
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent, false);
+        }
+
     }
 
     Post post = datasource.get(position);
@@ -54,6 +62,21 @@ public class PostAdapter extends BaseAdapter {
     return convertView;
   }
 
+  @Override public int getItemViewType(int position){
+    if(position == 0){
+      type = TYPE_HEADER;
+    }
+    else{
+      type = TYPE_ITEM_LIST;
+    }
+
+    return type;
+  }
+
+  @Override public int getViewTypeCount(){
+      return 2;
+  }
+
   private class PostAndView {
     public Post post;
     public View view;
@@ -62,6 +85,7 @@ public class PostAdapter extends BaseAdapter {
 
 
   public void showListPost(List<Post> posts) {
+    notifyDataSetInvalidated();
     this.datasource = posts;
     notifyDataSetChanged();
   }
