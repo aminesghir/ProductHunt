@@ -28,13 +28,13 @@ public final class DataBaseContract {
 
 
     public static final String SQL_CREATE_POST_TABLE =
-        "CREATE TABLE " +PostTable.TABLE_NAME+" ("+
-            PostTable.ID_COLUMN + INTEGER_TYPE+" PRIMARY KEY"+COMM_SPA+
-            PostTable.TITLE_COLUMN + TEXT_TYPE +COMM_SPA+
-            PostTable.SUBTITLE_COLUMN + TEXT_TYPE +COMM_SPA+
-            PostTable.IMAGE_URL_COLUMN + TEXT_TYPE+COMM_SPA+
-            PostTable.POST_URL_COLUMN + TEXT_TYPE+
-            ")";
+            "CREATE TABLE IF NOT EXISTS " +PostTable.TABLE_NAME+" ("+
+                    PostTable.ID_COLUMN + INTEGER_TYPE+" PRIMARY KEY"+COMM_SPA+
+                    PostTable.TITLE_COLUMN + TEXT_TYPE +COMM_SPA+
+                    PostTable.SUBTITLE_COLUMN + TEXT_TYPE +COMM_SPA+
+                    PostTable.IMAGE_URL_COLUMN + TEXT_TYPE+COMM_SPA+
+                    PostTable.POST_URL_COLUMN + TEXT_TYPE+", UNIQUE(" +
+                    PostTable.TITLE_COLUMN + ") ON CONFLICT REPLACE)";
 
     public static final String SQL_DROP_POST_TABLE =  "DROP TABLE IF EXISTS "+TABLE_NAME;
 
