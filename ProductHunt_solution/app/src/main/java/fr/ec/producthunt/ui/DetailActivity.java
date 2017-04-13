@@ -59,6 +59,8 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    //--------------------------------
+
     @Override public boolean onCreateOptionsMenu(Menu menu) {
 
         //Attacher le main menu au menu de l'activity
@@ -78,7 +80,6 @@ public class DetailActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    // ----------------------------------
     private void openUrlFromBrowser() {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(obtainPostUrlFromIntent()));

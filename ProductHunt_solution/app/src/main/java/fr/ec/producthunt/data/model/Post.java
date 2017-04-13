@@ -17,9 +17,9 @@ public class Post {
     private String urlImage;
     private Bitmap image;
     private String postUrl;
+    //--------------------------------
     private String date;
     int nbComments;
-
     public void setNbComments(int n){ nbComments = n; }
 
     public int getNbComments(){ return nbComments; }
@@ -27,7 +27,7 @@ public class Post {
     public String getDate(){ return this.date; }
 
     public void setDate(String d){ this.date = d; }
-
+    //--------------------------------
     public String getTitle() {
         return title;
     }
