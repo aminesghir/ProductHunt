@@ -13,7 +13,13 @@
         android:background="@android:color/darker_gray"
 
         />
-
+    <LinearLayout
+        android:id="@+id/title_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_product"
+        android:orientation="horizontal"
+        android:weightSum="3">
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -22,11 +28,30 @@
         android:padding="2dp"
         android:layout_marginBottom="2dp"
         android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@id/img_product"
+        android:layout_weight="1"
         android:text="Gear 360"
         />
+        <TextView
+            android:id="@+id/comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceListItem"
+            android:padding="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="2"
+            android:text="comments"
+            />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/sub_title_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_product"
+        android:layout_below="@id/title_comments"
+        android:orientation="horizontal"
+        android:weightSum="3">
     <TextView
         android:id="@+id/sub_title"
         android:layout_width="match_parent"
@@ -34,11 +59,20 @@
         android:textAppearance="?android:textAppearanceListItemSecondary"
         android:padding="2dp"
         android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_below="@id/title"
-        android:layout_toRightOf="@id/img_product"
+        android:layout_weight="1"
         android:text="Capture stunning 360 video for virtual reality, by Samsung"
         />
-
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:textAppearanceListItem"
+            android:padding="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="2"
+            android:text="date"
+            />
+</LinearLayout>
 
 </RelativeLayout>

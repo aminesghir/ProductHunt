@@ -11,74 +11,79 @@ import fr.ec.producthunt.data.database.DataBaseContract;
  * @author Mohammed Boukadir  @:mohammed.boukadir@gmail.com
  */
 public class Post {
-  int id;
-  String title;
-  String subTitle;
-  private String urlImage;
-  private Bitmap image;
-  private String postUrl;
-  private Date date;
+    int id;
+    String title;
+    String subTitle;
+    private String urlImage;
+    private Bitmap image;
+    private String postUrl;
+    private String date;
+    int nbComments;
 
-  public Date getDate(){ return this.date; }
+    public void setNbComments(int n){ nbComments = n; }
 
-  public void setDate(Date d){ this.date = d; }
+    public int getNbComments(){ return nbComments; }
 
-  public String getTitle() {
-    return title;
-  }
+    public String getDate(){ return this.date; }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setDate(String d){ this.date = d; }
 
-  public String getSubTitle() {
-    return subTitle;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public void setSubTitle(String subTitle) {
-    this.subTitle = subTitle;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public String getUrlImage() {
-    return urlImage;
-  }
+    public String getSubTitle() {
+        return subTitle;
+    }
 
-  public void setUrlImage(String urlImage) {
-    this.urlImage = urlImage;
-  }
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
 
-  public void setImage(Bitmap image) {
-    this.image = image;
-  }
+    public String getUrlImage() {
+        return urlImage;
+    }
 
-  public Bitmap getImage() {
-    return image;
-  }
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
 
-  public void setPostUrl(String postUrl) {
-    this.postUrl = postUrl;
-  }
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
 
-  public String getPostUrl() {
-    return postUrl;
-  }
+    public Bitmap getImage() {
+        return image;
+    }
 
-  public int getId() {
-    return id;
-  }
+    public void setPostUrl(String postUrl) {
+        this.postUrl = postUrl;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public String getPostUrl() {
+        return postUrl;
+    }
 
-  public ContentValues toContentValues() {
-    ContentValues contentValues = new ContentValues();
-    contentValues.put(DataBaseContract.PostTable.ID_COLUMN,id);
-    contentValues.put(DataBaseContract.PostTable.TITLE_COLUMN,title);
-    contentValues.put(DataBaseContract.PostTable.SUBTITLE_COLUMN,subTitle);
-    contentValues.put(DataBaseContract.PostTable.IMAGE_URL_COLUMN,urlImage);
-    contentValues.put(DataBaseContract.PostTable.POST_URL_COLUMN,postUrl);
-    return contentValues;
-  }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DataBaseContract.PostTable.ID_COLUMN,id);
+        contentValues.put(DataBaseContract.PostTable.TITLE_COLUMN,title);
+        contentValues.put(DataBaseContract.PostTable.SUBTITLE_COLUMN,subTitle);
+        contentValues.put(DataBaseContract.PostTable.IMAGE_URL_COLUMN,urlImage);
+        contentValues.put(DataBaseContract.PostTable.POST_URL_COLUMN,postUrl);
+        return contentValues;
+    }
 
 }

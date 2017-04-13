@@ -18,49 +18,59 @@ import java.util.List;
  */
 public class PostAdapter extends BaseAdapter {
 
-  private List<Post> datasource = Collections.EMPTY_LIST;
+    private List<Post> datasource = Collections.EMPTY_LIST;
 
-  public PostAdapter() {
-  }
-
-  @Override public int getCount() {
-    return datasource.size();
-  }
-
-  @Override public Object getItem(int position) {
-    return datasource.get(position);
-  }
-
-  @Override public long getItemId(int position) {
-    return position;
-  }
-
-  @Override public View getView(int position, View convertView, ViewGroup parent) {
-
-    if(convertView == null) {
-        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent, false);
+    public PostAdapter() {
     }
 
-    Post post = datasource.get(position);
-    TextView title = (TextView) convertView.findViewById(R.id.title);
-    title.setText(post.getTitle());
-    TextView subTitle = (TextView) convertView.findViewById(R.id.sub_title);
-    subTitle.setText(post.getSubTitle());
+    @Override public int getCount() {
+        return datasource.size();
+    }
 
-    ImageView imageView = (ImageView) convertView.findViewById(R.id.img_product);
-    Picasso.with(parent.getContext()).load(post.getUrlImage()).into(imageView);
-    return convertView;
-  }
+    @Override public Object getItem(int position) {
+        return datasource.get(position);
+    }
 
-  private class PostAndView {
-    public Post post;
-    public View view;
-    public Bitmap bitmap;
-  }
+    @Override public long getItemId(int position) {
+        return position;
+    }
+
+    @Override public View getView(int position, View convertView, ViewGroup parent) {
+
+        if(convertView == null) {
+            // ------------------------------
+            if(position == 0){
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header,parent, false);
+            }else {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+            }
+            //---------------------------------
+        }
+
+        Post post = datasource.get(position);
+        TextView title = (TextView) convertView.findViewById(R.id.title);
+        title.setText(post.getTitle());
+        TextView subTitle = (TextView) convertView.findViewById(R.id.sub_title);
+        subTitle.setText(post.getSubTitle());
+
+        /*/ ---------------------
+        ((TextView)convertView.findViewById(R.id.comments)).setText(String.valueOf(post.getNbComments()) + " comments");
+        ((TextView)convertView.findViewById(R.id.date)).setText(post.getNbComments());
+        //---------------------- */
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.img_product);
+        Picasso.with(parent.getContext()).load(post.getUrlImage()).into(imageView);
+        return convertView;
+    }
+
+    private class PostAndView {
+        public Post post;
+        public View view;
+        public Bitmap bitmap;
+    }
 
 
-  public void showListPost(List<Post> posts) {
-    this.datasource = posts;
-    notifyDataSetChanged();
-  }
+    public void showListPost(List<Post> posts) {
+        this.datasource = posts;
+        notifyDataSetChanged();
+    }
 }
