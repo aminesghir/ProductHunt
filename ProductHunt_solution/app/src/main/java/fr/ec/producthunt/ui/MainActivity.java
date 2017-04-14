@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewAnimator;
 import fr.ec.producthunt.R;
 import fr.ec.producthunt.data.DataProvider;
@@ -24,6 +27,8 @@ import fr.ec.producthunt.data.database.ProductHuntDbHelper;
 import fr.ec.producthunt.data.model.Post;
 import fr.ec.producthunt.ui.Adapter.PostAdapter;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,14 +41,35 @@ public class MainActivity extends AppCompatActivity {
     private ViewAnimator viewAnimator;
     private ProductHuntDbHelper dbHelper;
 
+    //-------------------------------------------
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    //-------------------------------------------
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //----------------------------------------------
+
+
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swiperefresh);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshPosts();
+            }
+        });
+        //----------------------------------------------
+
 
         //Utilisé une toolbar au lieu d'un actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(R.string.app_name);
+
 
         listView = (ListView) findViewById(R.id.listview);
         adapter = new PostAdapter();
@@ -60,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
 
-        viewAnimator = (ViewAnimator) findViewById(R.id.viewAnimator);
+        //viewAnimator = (ViewAnimator) findViewById(R.id.viewAnimator);
 
-        viewAnimator.setDisplayedChild(1);
+        swipeRefreshLayout.setRefreshing(false);
+        //viewAnimator.setDisplayedChild(1);
 
         dbHelper = new ProductHuntDbHelper(this);
 
@@ -94,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.refresh:
                 refreshPosts();
+                swipeRefreshLayout.setRefreshing(true);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -110,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
         @Override protected void onPreExecute() {
             super.onPreExecute();
             Log.d(TAG, "onPreExecute: ");
-            viewAnimator.setDisplayedChild(0);
+            swipeRefreshLayout.setRefreshing(true);
+            //viewAnimator.setDisplayedChild(0);
         }
 
 
@@ -123,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
             if (posts != null && !posts.isEmpty() ) {
                 adapter.showListPost(posts);
             }
-            viewAnimator.setDisplayedChild(1);
+            swipeRefreshLayout.setRefreshing(false);
+            //viewAnimator.setDisplayedChild(1);
 
 
         }
@@ -135,7 +165,8 @@ public class MainActivity extends AppCompatActivity {
         @Override protected void onPreExecute() {
             super.onPreExecute();
             Log.d(TAG, "onPreExecute: ");
-            viewAnimator.setDisplayedChild(0);
+            swipeRefreshLayout.setRefreshing(true);
+            //viewAnimator.setDisplayedChild(0);
         }
 
         //Do on Background Thread
@@ -152,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
                 loadPosts();
 
             }else {
-                viewAnimator.setDisplayedChild(1);
+                swipeRefreshLayout.setRefreshing(false);
+                //viewAnimator.setDisplayedChild(1);
 
             }
 
@@ -174,5 +206,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    //---------------------------------------
+    public void onClickComment(View view){
+        Intent intent = new Intent(MainActivity.this,CommentActivity.class);
+        View v = (View)view.getParent().getParent();
+        ListView l = (ListView)v.getParent();
+        intent.putExtra("POST_ID", l.getPositionForView(v));
+        startActivity(intent);
     }
 }
