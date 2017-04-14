@@ -19,112 +19,167 @@ import java.util.List;
  */
 public class DataProvider {
 
-  private static final String TAG = "DataProvider";
+    private static final String TAG = "DataProvider";
 
-  public static List<Post> getPosts(int number) {
-    List<Post> list = new ArrayList<>(number);
+    public static List<Post> getPosts(int number) {
+        List<Post> list = new ArrayList<>(number);
 
-    for (int i = 0; i < number; i++) {
-      Post post = new Post();
-      post.setTitle("Gear 360 " + i);
-      post.setSubTitle("Capture stunning 360 video for virtual reality, by Samsung");
+        for (int i = 0; i < number; i++) {
+            Post post = new Post();
+            post.setTitle("Gear 360 " + i);
+            post.setSubTitle("Capture stunning 360 video for virtual reality, by Samsung");
 
-      list.add(post);
-    }
-
-    return list;
-  }
-
-  public static String getPostsFromWeb() {
-
-    HttpURLConnection urlConnection = null;
-    BufferedReader reader = null;
-
-    // Contiendra la réponse JSON brute sous forme de String .
-    String posts = null;
-
-    try {
-      // Construire l' URL de l'API ProductHunt
-      URL url = new URL(
-          "https://api.producthunt.com/v1/posts?access_token=cd567777bbbfa3108bc701cbcd8b944bab23841dee7b83c39ea8e330972ac08c");
-
-      // Creer de la requête http vers  l'API ProductHunt , et ouvrir la connexion
-      urlConnection = (HttpURLConnection) url.openConnection();
-      urlConnection.setRequestMethod("GET");
-      urlConnection.connect();
-
-      // Lire le  input stream et le convertir String
-      InputStream inputStream = urlConnection.getInputStream();
-      StringBuffer buffer = new StringBuffer();
-      if (inputStream == null) {
-        // Nothing to do.
-        return null;
-      }
-      reader = new BufferedReader(new InputStreamReader(inputStream));
-
-      String line;
-      while ((line = reader.readLine()) != null) {
-        buffer.append(line + "\n");
-      }
-
-      if (buffer.length() == 0) {
-        // Si le stream est vide, on revoie null;
-        return null;
-      }
-      posts = buffer.toString();
-    } catch (IOException e) {
-      Log.e(TAG, "Error ", e);
-      return null;
-    } finally {
-      if (urlConnection != null) {
-        urlConnection.disconnect();
-      }
-      if (reader != null) {
-        try {
-          reader.close();
-        } catch (final IOException e) {
-          Log.e(TAG, "Error closing stream", e);
+            list.add(post);
         }
-      }
+
+        return list;
     }
 
-    return posts;
-  }
+    public static String getPostsFromWeb() {
 
-  public static InputStream getImageStream(String urlImage)  {
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
 
-    URL url= null;
-    InputStream in = null ;
-    try {
+        // Contiendra la réponse JSON brute sous forme de String .
+        String posts = null;
 
-      url = new URL(urlImage);
-      in = (InputStream) url.getContent();
+        try {
+            // Construire l' URL de l'API ProductHunt
+            URL url = new URL(
+                    "https://api.producthunt.com/v1/posts?access_token=cd567777bbbfa3108bc701cbcd8b944bab23841dee7b83c39ea8e330972ac08c");
 
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+            // Creer de la requête http vers  l'API ProductHunt , et ouvrir la connexion
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            // Lire le  input stream et le convertir String
+            InputStream inputStream = urlConnection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line + "\n");
+            }
+
+            if (buffer.length() == 0) {
+                // Si le stream est vide, on revoie null;
+                return null;
+            }
+            posts = buffer.toString();
+        } catch (IOException e) {
+            Log.e(TAG, "Error ", e);
+            return null;
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (final IOException e) {
+                    Log.e(TAG, "Error closing stream", e);
+                }
+            }
+        }
+
+        return posts;
     }
-    return in;
-  }
 
-  public static boolean syncPost(ProductHuntDbHelper dbHelper) {
-    String postJson = getPostsFromWeb();
-    List<Post> list = JsonPostParser.jsonToPosts(postJson);
+    //-------------------------------------
+    public static String getPostDetails(int id){
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
 
-    int nb = 0;
-    PostDao postDao = new PostDao(dbHelper);
-    for (Post post : list) {
-      postDao.save(post);
-      nb++;
+        // Contiendra la réponse JSON brute sous forme de String .
+        String posts = null;
+
+        try {
+            // Construire l' URL de l'API ProductHunt
+            URL url = new URL(
+                    "https://api.producthunt.com/v1/posts/"+String.valueOf(id)+"?access_token=cd567777bbbfa3108bc701cbcd8b944bab23841dee7b83c39ea8e330972ac08c");
+
+            // Creer de la requête http vers  l'API ProductHunt , et ouvrir la connexion
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            // Lire le  input stream et le convertir String
+            InputStream inputStream = urlConnection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
+            if (inputStream == null) {
+                // Nothing to do.
+                return null;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line + "\n");
+            }
+
+            if (buffer.length() == 0) {
+                // Si le stream est vide, on revoie null;
+                return null;
+            }
+            posts = buffer.toString();
+        } catch (IOException e) {
+            Log.e(TAG, "Error ", e);
+            return null;
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (final IOException e) {
+                    Log.e(TAG, "Error closing stream", e);
+                }
+            }
+        }
+        return posts;
     }
-    return nb>0;
-  }
 
-  public static List<Post> getPostsFromDatabase(ProductHuntDbHelper dbHelper) {
+    public static InputStream getImageStream(String urlImage)  {
 
-    PostDao postDao = new PostDao(dbHelper);
-    return postDao.retrievePosts();
-  }
+        URL url= null;
+        InputStream in = null ;
+        try {
+
+            url = new URL(urlImage);
+            in = (InputStream) url.getContent();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return in;
+    }
+
+    public static boolean syncPost(ProductHuntDbHelper dbHelper) {
+        String postJson = getPostsFromWeb();
+        List<Post> list = JsonPostParser.jsonToPosts(postJson);
+
+        int nb = 0;
+        PostDao postDao = new PostDao(dbHelper);
+        for (Post post : list) {
+            postDao.save(post);
+            nb++;
+        }
+        return nb>0;
+    }
+
+    public static List<Post> getPostsFromDatabase(ProductHuntDbHelper dbHelper) {
+
+        PostDao postDao = new PostDao(dbHelper);
+        return postDao.retrievePosts();
+    }
 }
 

@@ -68,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         loadPosts();
 
-
+        //-------------------
         refreshPosts();
+        //-------------------------------
 
     }
 

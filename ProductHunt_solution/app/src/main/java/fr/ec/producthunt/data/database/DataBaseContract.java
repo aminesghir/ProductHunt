@@ -24,6 +24,8 @@ public final class DataBaseContract {
         public static final String SUBTITLE_COLUMN ="subtitle";
         public static final String IMAGE_URL_COLUMN ="imageurl";
         public static final String POST_URL_COLUMN  ="postUrl";
+        public static final String CREATION_DATE  ="date";
+        public static final String NB_COMMENTS  ="nbComments";
 
 
 
@@ -31,10 +33,12 @@ public final class DataBaseContract {
                 //----------------------------------------------
                 "CREATE TABLE IF NOT EXISTS " +PostTable.TABLE_NAME+" ("+
                         PostTable.ID_COLUMN + INTEGER_TYPE+" PRIMARY KEY"+COMM_SPA+
-                        PostTable.TITLE_COLUMN + TEXT_TYPE +COMM_SPA+
-                        PostTable.SUBTITLE_COLUMN + TEXT_TYPE +COMM_SPA+
-                        PostTable.IMAGE_URL_COLUMN + TEXT_TYPE+COMM_SPA+
-                        PostTable.POST_URL_COLUMN + TEXT_TYPE+", UNIQUE(" +
+                        PostTable.TITLE_COLUMN + TEXT_TYPE + COMM_SPA+
+                        PostTable.SUBTITLE_COLUMN + TEXT_TYPE + COMM_SPA+
+                        PostTable.IMAGE_URL_COLUMN + TEXT_TYPE + COMM_SPA+
+                        PostTable.POST_URL_COLUMN + TEXT_TYPE + COMM_SPA+
+                        PostTable.CREATION_DATE + TEXT_TYPE + COMM_SPA+
+                        PostTable.NB_COMMENTS + INTEGER_TYPE + ", UNIQUE(" +
                         PostTable.TITLE_COLUMN + ") ON CONFLICT REPLACE)";
         //-------------------------------------------------
         public static final String SQL_DROP_POST_TABLE =  "DROP TABLE IF EXISTS "+TABLE_NAME;
@@ -45,6 +49,8 @@ public final class DataBaseContract {
                 SUBTITLE_COLUMN,
                 IMAGE_URL_COLUMN,
                 POST_URL_COLUMN,
+                CREATION_DATE,
+                NB_COMMENTS,
         };
     }
 

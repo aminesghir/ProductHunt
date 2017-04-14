@@ -28,6 +28,7 @@ public class PostAdapter extends BaseAdapter {
     }
 
     @Override public Object getItem(int position) {
+
         return datasource.get(position);
     }
 
@@ -37,7 +38,7 @@ public class PostAdapter extends BaseAdapter {
 
     @Override public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView == null) {
+        //if(convertView == null) {
             // ------------------------------
             if(position == 0){
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header,parent, false);
@@ -45,18 +46,22 @@ public class PostAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
             }
             //---------------------------------
-        }
+        //}
 
         Post post = datasource.get(position);
         TextView title = (TextView) convertView.findViewById(R.id.title);
-        title.setText(post.getTitle());
+        title.setText(post.getTitle() + String.valueOf(position));
         TextView subTitle = (TextView) convertView.findViewById(R.id.sub_title);
         subTitle.setText(post.getSubTitle());
 
-        /*/ ---------------------
+        // -----------------------------
+
+
         ((TextView)convertView.findViewById(R.id.comments)).setText(String.valueOf(post.getNbComments()) + " comments");
-        ((TextView)convertView.findViewById(R.id.date)).setText(post.getNbComments());
-        //---------------------- */
+        ((TextView)convertView.findViewById(R.id.date)).setText(post.getDate());
+
+
+        //------------------------------
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img_product);
         Picasso.with(parent.getContext()).load(post.getUrlImage()).into(imageView);
         return convertView;

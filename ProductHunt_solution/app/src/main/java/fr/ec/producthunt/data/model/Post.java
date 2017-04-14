@@ -11,6 +11,7 @@ import fr.ec.producthunt.data.database.DataBaseContract;
  * @author Mohammed Boukadir  @:mohammed.boukadir@gmail.com
  */
 public class Post {
+
     int id;
     String title;
     String subTitle;
@@ -83,6 +84,15 @@ public class Post {
         contentValues.put(DataBaseContract.PostTable.SUBTITLE_COLUMN,subTitle);
         contentValues.put(DataBaseContract.PostTable.IMAGE_URL_COLUMN,urlImage);
         contentValues.put(DataBaseContract.PostTable.POST_URL_COLUMN,postUrl);
+
+        //-----------------------------------------------
+
+
+        contentValues.put(DataBaseContract.PostTable.CREATION_DATE,date);
+        contentValues.put(DataBaseContract.PostTable.NB_COMMENTS,nbComments);
+
+
+        //---------------------------------------------------
         return contentValues;
     }
 
