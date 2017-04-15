@@ -103,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshPosts();
+    }
+
     private void navigateToDetailActivity(Post post) {
         Intent intent = new Intent(MainActivity.this,DetailActivity.class);
         intent.putExtra(DetailActivity.POST_URL_KEY,post.getPostUrl());
