@@ -50,7 +50,7 @@ public class PostAdapter extends BaseAdapter {
 
         Post post = datasource.get(position);
         TextView title = (TextView) convertView.findViewById(R.id.title);
-        title.setText(post.getTitle() + String.valueOf(position));
+        title.setText(post.getTitle());
         TextView subTitle = (TextView) convertView.findViewById(R.id.sub_title);
         subTitle.setText(post.getSubTitle());
 
@@ -59,6 +59,7 @@ public class PostAdapter extends BaseAdapter {
 
         ((TextView)convertView.findViewById(R.id.comments)).setText(String.valueOf(post.getNbComments()) + " comments");
         ((TextView)convertView.findViewById(R.id.date)).setText(post.getDate());
+        ((TextView)convertView.findViewById(R.id.idComment)).setText(String.valueOf(post.getId()));
 
 
         //------------------------------

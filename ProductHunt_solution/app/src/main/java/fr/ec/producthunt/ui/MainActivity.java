@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 refreshPosts();
             }
         });
+
         //----------------------------------------------
 
 
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadPosts();
 
-        //-------------------
+        //-------------------------------
         refreshPosts();
         //-------------------------------
 
@@ -197,7 +199,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isOnline() {
-
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -211,9 +212,10 @@ public class MainActivity extends AppCompatActivity {
     //---------------------------------------
     public void onClickComment(View view){
         Intent intent = new Intent(MainActivity.this,CommentActivity.class);
-        View v = (View)view.getParent().getParent();
-        ListView l = (ListView)v.getParent();
-        intent.putExtra("POST_ID", l.getPositionForView(v));
+        ViewGroup v = (ViewGroup)view.getParent();
+        intent.putExtra("POST_ID", Integer.valueOf((String)((TextView)v.getChildAt(0)).getText()));
+        intent.putExtra("POST_TITLE", (String)((TextView)v.getChildAt(1)).getText());
+
         startActivity(intent);
     }
 }
